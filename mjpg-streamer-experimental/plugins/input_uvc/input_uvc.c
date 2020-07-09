@@ -856,6 +856,7 @@ void cam_cleanup(void *arg)
     free(in->buf);
     in->buf = NULL;
     in->size = 0;
+    DBG("cleaning up resources allocated by input thread successfull\n");
 }
 
 /******************************************************************************

@@ -515,6 +515,7 @@ static int video_disable(struct vdIn *vd, streaming_state disabledState)
         DBG("STopping capture done\n");
     }
     vd->streamingState = disabledState;
+    DBG("streamingState == %d\n", vd->streamingState);
     return 0;
 }
 
@@ -691,16 +692,22 @@ err:
 
 int close_v4l2(struct vdIn *vd)
 {
+    IPRINT("closing v4l2 device\n");
     if(vd->streamingState == STREAMING_ON)
         video_disable(vd, STREAMING_OFF);
+    DBG("video_disable: OK\n");
     free_framebuffer(vd);
+    DBG("free_framebuffer: OK\n");
     free(vd->videodevice);
+    DBG("free videodevice: OK\n");
     free(vd->status);
+    DBG("free status: OK\n");
     free(vd->pictName);
+    DBG("free pictName: OK\n");
     vd->videodevice = NULL;
     vd->status = NULL;
     vd->pictName = NULL;
-
+    DBG("v4l2 device closed\n");
     return 0;
 }
 
